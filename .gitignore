@@ -1,0 +1,4 @@
+*.code-workspace
+*.egg*
+__pycache__
+*.pyc

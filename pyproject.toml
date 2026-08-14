@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "raft-constrain-llm-challenge"
+version = "0.1.0"
+description = "Constrained LLM agent for parsing and querying unstructured customer order data"
+requires-python = ">=3.12"
+
+dependencies = [
+    "flask",
+    "langchain",
+    "langgraph",
+    "langchain_ollama",
+    "langchain-openai",
+    "pydantic",
+    "requests",
+    "python-dotenv",
+    "us",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
