@@ -100,26 +100,26 @@ Program Diagram:
             ==================================================
             SEPARATE PIPELINE: NATURAL LANGUAGE QUERY HANDLING
             ==================================================
-                                    .
-                                    .
-       3. Convert Request           .
-               v                    .
-+------------------------------+    .
-|        QueryProcessor        |    .
-|  Takes natural-language text |    .
-+------------------------------+    .
-               |                    .
-               | Calls LLM          .
-               v                    .
-+------------------------------+    .
-|  LLM                         |    .
-| Extracts query criteria      |    .
-+------------------------------+    .
-               |                    .
-               | Returns JSON       .
-               v                    .
-+------------------------------+    .
-|      Pydantic OrderQuery     |    .
-|  - Keeps state clean         |....+ (Feeds into OrderFilter)
+                                    |
+                                    |
+       3| Convert Request           |
+               v                    |
++------------------------------+    |
+|        QueryProcessor        |    |
+|  Takes natural-language text |    |
++------------------------------+    |
+               |                    |
+               | Calls LLM          |
+               v                    |
++------------------------------+    |
+|  LLM                         |    |
+| Extracts query criteria      |    |
++------------------------------+    |
+               |                    |
+               | Returns JSON       |
+               v                    |
++------------------------------+    |
+|      Pydantic OrderQuery     |    |
+|  - Keeps state clean         |--- + (Feeds into OrderFilter)
 |  - Maps floats for alignment |
 +------------------------------+
