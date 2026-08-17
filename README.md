@@ -101,22 +101,22 @@ Program Diagram:
                   ==================================================
                                           |
                                           |
-            3| Convert Request           |
-                  v                    |
+            3| Convert Request            |
+                  v                       |
       +------------------------------+    |
       |        QueryProcessor        |    |
       |  Takes natural-language text |    |
       +------------------------------+    |
-                  |                    |
-                  | Calls LLM          |
-                  v                    |
+                  |                       |
+                  | Calls LLM             |
+                  v                       |
       +------------------------------+    |
       |  LLM                         |    |
       | Extracts query criteria      |    |
       +------------------------------+    |
-                  |                    |
-                  | Returns JSON       |
-                  v                    |
+                  |                       |
+                  | Returns JSON          |
+                  v                       |
       +------------------------------+    |
       |      Pydantic OrderQuery     |    |
       |  - Keeps state clean         |--- + (Feeds into OrderFilter)
