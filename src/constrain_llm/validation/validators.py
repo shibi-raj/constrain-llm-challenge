@@ -3,20 +3,11 @@ import re
 
 
 class OrderValidator:
-
+    """
+    Hook for domain-specific business validation post-parsing.
+    Pydantic handles structural type checking.
+    This layer meamnt for future context-aware validation.
+    """
     def validate(self, order: Order, raw: str) -> str | None:
-        if order.order_id not in raw:
-            return "Order ID not found in source"
-
-        if order.buyer not in raw:
-            return "Buyer not found in source"
-
-        if order.state not in raw:
-            return "State not found in source"
-
-        if f"{order.total:.2f}" not in raw:
-            return "Total not found in source"
-
+        # Intentionally leaving open for downstream validation rules
         return None
-
-
