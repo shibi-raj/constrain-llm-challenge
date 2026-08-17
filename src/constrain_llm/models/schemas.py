@@ -1,13 +1,45 @@
 import re
 import us
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, Field, field_validator, BeforeValidator
+from typing import Annotated
+from decimal import Decimal
 
+
+def clean_city_string(v: str) -> str:
+    """If the LLM passes 'Columbus, OH' as the city, strip the state suffix."""
+    if isinstance(v, str) and "," in v:
+        # Splits 'Columbus, OH' into ['Columbus', ' OH'] and takes the first part
+        return v.split(",")[0].strip()
+    return v
 
 class Order(BaseModel):
-    order_id: str
-    buyer: str
-    state: str
-    total: float
+    order_id: str = Field(
+        description="The unique digits of the order identifier, excluding the word 'Order'.",
+        examples=["1005", "1002"]
+    )
+    buyer: str = Field(
+        description="The full first and last name of the customer.",
+        examples=["Chris Myers"]
+    )
+    # city: str = Field(
+    #     description="The clean name of the city only. Do not include the state.",
+    #     examples=["Cincinnati", "Austin"]
+    # )
+    city: Annotated[str, BeforeValidator(clean_city_string)] = Field(
+        description="The clean name of the city only. E.g., 'Columbus'"
+    )
+
+    state: str = Field(
+        description="The 2-letter capitalized US state abbreviation only.",
+        min_length=2,
+        max_length=2,
+        examples=["OH", "TX"]
+    )
+    total: float = Field(
+        description="The total monetary cost of the order as a float. Strip out currency symbols like '$'.",
+        gt=0.0,
+        examples=[512.00, 156.55]
+    )
 
     @field_validator("buyer")
     @classmethod
