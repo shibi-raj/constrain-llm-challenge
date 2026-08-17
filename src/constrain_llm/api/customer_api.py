@@ -1,7 +1,5 @@
 from typing import Any
-
 import requests
-
 from constrain_llm.models.schemas import RawOrdersResponse
 
 

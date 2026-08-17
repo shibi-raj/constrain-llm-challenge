@@ -36,12 +36,11 @@ class OrderProcessor:
             provider=LLM_PROVIDER,
             model=LLM_MODEL,
         )
-
         self.structured_order_llm = (
             self.llm.with_structured_output(Order)
         )
-
         self.num_attempts = num_attempts
+        self.validator = OrderValidator()
 
     def process(self, response: RawOrdersResponse) -> ParsedOrders:
         orders = []
